@@ -21,6 +21,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
             services.AddDbContext<Contexto>(x=>x.UseInMemoryDatabase("memo"));
         }
 
@@ -37,6 +38,13 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseCors(builder =>{
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseEndpoints(endpoints =>
             {
