@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-        crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
-    <title>Contatos</title>
-</head>
-
-<body>
-    <div class="container">
+   <div class="container">
         <div class="mt-2">
         <div class="float-left">
-            <a href="endereco.html" class="btn btn-link"><em class="fas fa-arrow-left"></em> Voltar</a>
+            <a asp-action="Enderecos" class="btn btn-link"><em class="fas fa-arrow-left"></em> Voltar</a>
         </div>
         <div class="float-right">
-            <a href="index.html" class="btn btn-link">Sair <em class="fas fa-sign-out-alt"></em></a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-link">Sair <em class="fas fa-sign-out-alt"></em></a>
         </div>
         </div>
         <br>
@@ -47,12 +32,8 @@
                 <input class="form-control" id="dataDeNascimento" name="dataDeNascimento" type="text">
             </div>
             <div class="float-right">
-                <input class="btn btn-info" type="submit" value="Salvar">
+                <input class="btn btn-success" type="submit" value="Salvar">
             </div>
         </form>
     </div>
 </div>
-
-</body>
-
-</html>

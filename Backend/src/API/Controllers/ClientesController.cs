@@ -5,7 +5,6 @@ using API.Data;
 using Dominio;
 using Dominio.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
