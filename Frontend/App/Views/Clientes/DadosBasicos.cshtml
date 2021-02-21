@@ -1,3 +1,6 @@
+   @model DadosBasicosViewModel
+@{
+}
    <div class="container">
         <div class="mt-2">
             <div class="float-left">
@@ -18,26 +21,25 @@
                 aria-valuemax="100"><span class="p-2 bg-light alert-secondary">Contato</span></div>
         </div>
         <div class="card card-body mt-2">
-            <form id="form" method="POST">
-                <input hidden id="id" name="id">
+           <form asp-action="DadosBasicos">
                 <div class="form-group">
-                    <label for="nome">Nome completo</label>
-                    <input class="form-control" id="nome" name="nome" type="text" required>
+                    <label asp-for="Nome"></label>
+                    <input class="form-control" asp-for="Nome">
                 </div>
                 <div class="form-group">
-                    <label for="rg">RG</label>
-                    <input class="form-control" id="rg" name="rg" type="text" required>
+                    <label asp-for="Rg"></label>
+                    <input class="form-control" asp-for="Rg" type="text" required>
                 </div>
                 <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input class="form-control" id="cpf" name="cpf" type="text" required>
+                    <label asp-for="Cpf"></label>
+                    <input class="form-control" asp-for="Cpf" type="text" required>
                 </div>
                 <div class="form-group">
-                    <label for="dataDeNascimento">Data de nascimento</label>
-                    <input class="form-control" id="dataDeNascimento" name="dataDeNascimento" type="text" required>
+                    <label asp-for="DataDeNascimento"></label>
+                    <input class="form-control" asp-for="DataDeNascimento" type="text" required>
                 </div>
                 <div class="float-right">
-                    <input class="btn btn-success" type="submit" value="Salvar" required>
+                    <button class="btn btn-success" type="submit" >Salvar</button>
                 </div>
             </form>
         </div>

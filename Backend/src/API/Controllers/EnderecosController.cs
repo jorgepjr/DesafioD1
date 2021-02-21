@@ -11,30 +11,31 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ClientesController : ControllerBase
+    public class EnderecosController : ControllerBase
     {
         private readonly Contexto db;
 
-        public ClientesController(Contexto db)
+        public EnderecosController(Contexto db)
         {
             this.db = db;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ClienteDto clienteDto)
+        public async Task<IActionResult> Post([FromBody] EnderecoDto enderecoDto)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(clienteDto);
+                return BadRequest(enderecoDto);
             }
 
-            var cliente = new Cliente(clienteDto.Nome, clienteDto.Rg, clienteDto.Cpf, clienteDto.DataDeNascimento);
-            await db.AddAsync(cliente);
+            var endereco = new Endereco(enderecoDto.ClienteId,
+                                        enderecoDto.Cep, enderecoDto.Rua,
+                                        enderecoDto.Bairro, enderecoDto.Numero);
+
+            await db.AddAsync(endereco);
             await db.SaveChangesAsync();
 
-            clienteDto.Id = cliente.Id;
-
-            return Ok(clienteDto);
+            return Ok(endereco);
         }
 
         [HttpGet]
