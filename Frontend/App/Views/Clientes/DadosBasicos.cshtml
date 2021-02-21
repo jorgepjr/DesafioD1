@@ -7,7 +7,7 @@
                 <a asp-controller="Home" asp-action="Index" class="btn btn-link"><em class="fas fa-arrow-left"></em> Voltar</a>
             </div>
             <div class="float-right">
-                <a asp-action="Enderecos" class="btn btn-link">Próximo <em class="fas fa-arrow-right"></em></a>
+                <a asp-action="Enderecos" asp-route-clienteId='@TempData["ClienteId"]' class="btn btn-link">Próximo <em class="fas fa-arrow-right"></em></a>
             </div>
         </div>
         <br>

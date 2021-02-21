@@ -7,5 +7,7 @@ namespace App.Models
     {
         [HiddenInput]
         public Guid ClienteId { get; set; }
+        public string Valor { get; set; }
+        public int TipoDeContato { get; set; }
     }
 }

@@ -16,9 +16,24 @@ namespace App.Controllers
             this.clientApi = clientApi;
         }
 
-        public IActionResult DadosBasicos(Guid? clienteId)
+        public async Task<IActionResult> DadosBasicos(Guid? clienteId)
         {
-            var dadosBasicosViewModel = new DadosBasicosViewModel { };
+            if (clienteId is null)
+            {
+                return View();
+            }   
+
+            var cliente = await clientApi.BuscarDadosBasicos(clienteId);
+
+            var dadosBasicosViewModel = new DadosBasicosViewModel
+            {
+                Id = cliente.Id,
+                Nome = cliente.Nome,
+                Cpf = cliente.Cpf,
+                Rg = cliente.Rg,
+                DataDeNascimento = cliente.DataDeNascimento
+            };
+            TempData["ClienteId"] = dadosBasicosViewModel.Id;
             return View(dadosBasicosViewModel);
         }
 
@@ -39,6 +54,7 @@ namespace App.Controllers
         public IActionResult Enderecos(Guid clienteId)
         {
             var enderecoViewModel = new EnderecoViewModel { ClienteId = clienteId };
+            TempData["ClienteId"] = enderecoViewModel.ClienteId;
             return View(enderecoViewModel);
         }
 
@@ -62,9 +78,16 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public IActionResult Contatos()
+        public async Task<IActionResult> Contatos(ContatoViewModel contatoViewModel)
         {
-            return View();
+             if (!ModelState.IsValid)
+            {
+                return View(contatoViewModel);
+            }
+            var contato = await clientApi.AdicionarContato(contatoViewModel);
+            TempData["ClienteId"] = contato.ClienteId;
+
+            return RedirectToAction(nameof(Contatos), new { clienteId = contato.ClienteId });
         }
     }
 }
