@@ -28,5 +28,8 @@ namespace App.Interfaces
 
         [Get("/clientes")]
         Task<List<DadosBasicosViewModel>> BuscarClientes();
+
+        [Put("/clientes")]
+        Task AtualizarDadosBasicos(DadosBasicosViewModel dadosBasicosViewModel);
     }
 }

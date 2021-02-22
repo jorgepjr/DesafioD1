@@ -51,11 +51,19 @@ namespace App.Controllers
             {
                 return View(dadosBasicosViewModel);
             }
-            var cliente = await clientApi.CadastrarDadosBasicos(dadosBasicosViewModel);
+            if (dadosBasicosViewModel.Id is null)
+            {
+                var cliente = await clientApi.CadastrarDadosBasicos(dadosBasicosViewModel);
+                dadosBasicosViewModel.Id = cliente.Id;
+            }
+            else
+            {
+                await clientApi.AtualizarDadosBasicos(dadosBasicosViewModel);
+            }
+            TempData["ClienteId"] = dadosBasicosViewModel.Id;
 
-            TempData["ClienteId"] = cliente.Id;
 
-            return RedirectToAction(nameof(Enderecos), new { clienteId = cliente.Id });
+            return RedirectToAction(nameof(Enderecos), new { clienteId = dadosBasicosViewModel.Id });
         }
 
         public IActionResult NovoEndereco(Guid clienteId)
