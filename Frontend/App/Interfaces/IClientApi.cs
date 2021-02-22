@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
 using App.Models;
@@ -15,8 +16,17 @@ namespace App.Interfaces
 
         [Get("/clientes/{clienteId}")]
         Task<DadosBasicosViewModel> BuscarDadosBasicos(Guid? clienteId);
-        
+
         [Post("/contatos")]
         Task<ContatoViewModel> AdicionarContato(ContatoViewModel contatoViewModel);
+
+        [Get("/enderecos/{clienteId}")]
+        Task<List<EnderecoViewModel>> BuscarEnderecosPorClienteId(Guid clienteId);
+
+        [Get("/contatos/{clienteId}")]
+        Task<List<ContatoViewModel>> BuscarContatosPorClienteId(Guid clienteId);
+
+        [Get("/clientes")]
+        Task<List<DadosBasicosViewModel>> BuscarClientes();
     }
 }

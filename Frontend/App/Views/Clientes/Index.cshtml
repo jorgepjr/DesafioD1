@@ -1,0 +1,30 @@
+@model IEnumerable<DadosBasicosViewModel>
+    @{
+    ViewData["Title"] = "Clientes";
+    }
+
+
+    <div class="container">
+        <h3 class="mt-2">@ViewData["Title"]</h3>
+        <div class="card card-body mt-2">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Nascimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <th>@item.Cpf</th>
+                        <td>@item.Nome</td>
+                        <td>@item.DataDeNascimento</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

@@ -16,12 +16,19 @@ namespace App.Controllers
             this.clientApi = clientApi;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var clientes = await clientApi.BuscarClientes();
+
+            return View(clientes);
+        }
+
         public async Task<IActionResult> DadosBasicos(Guid? clienteId)
         {
             if (clienteId is null)
             {
                 return View();
-            }   
+            }
 
             var cliente = await clientApi.BuscarDadosBasicos(clienteId);
 
@@ -51,7 +58,7 @@ namespace App.Controllers
             return RedirectToAction(nameof(Enderecos), new { clienteId = cliente.Id });
         }
 
-        public IActionResult Enderecos(Guid clienteId)
+        public IActionResult NovoEndereco(Guid clienteId)
         {
             var enderecoViewModel = new EnderecoViewModel { ClienteId = clienteId };
             TempData["ClienteId"] = enderecoViewModel.ClienteId;
@@ -59,7 +66,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Enderecos(EnderecoViewModel enderecoViewModel)
+        public async Task<IActionResult> SalvarEndereco(EnderecoViewModel enderecoViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -68,26 +75,56 @@ namespace App.Controllers
             var endereco = await clientApi.AdicionarEndereco(enderecoViewModel);
             TempData["ClienteId"] = endereco.ClienteId;
 
-            return RedirectToAction(nameof(Contatos), new { clienteId = endereco.ClienteId });
+            return RedirectToAction(nameof(Enderecos), new {clienteId = endereco.ClienteId});
         }
 
-        public IActionResult Contatos(Guid clienteId)
+        public async Task<IActionResult> Enderecos(Guid clienteId)
+        {
+            TempData["ClienteId"] = clienteId;
+
+            var enderecos = await clientApi.BuscarEnderecosPorClienteId(clienteId);
+
+            if (enderecos is null)
+            {
+                return View();
+            }
+
+            return View(enderecos);
+        }
+
+        public async Task<IActionResult> Contatos(Guid clienteId)
+        {
+             TempData["ClienteId"] = clienteId;
+             
+            var contatos = await clientApi.BuscarContatosPorClienteId(clienteId);
+
+            if (contatos is null)
+            {
+                return View();
+            }
+
+            return View(contatos);
+        }
+
+        public IActionResult NovoContato(Guid clienteId)
         {
             var contatoViewModel = new ContatoViewModel { ClienteId = clienteId };
+            TempData["ClienteId"] = contatoViewModel.ClienteId;
+
             return View(contatoViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Contatos(ContatoViewModel contatoViewModel)
+        public async Task<IActionResult> SalvarContato(ContatoViewModel contatoViewModel)
         {
-             if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(contatoViewModel);
             }
             var contato = await clientApi.AdicionarContato(contatoViewModel);
             TempData["ClienteId"] = contato.ClienteId;
 
-            return RedirectToAction(nameof(Contatos), new { clienteId = contato.ClienteId });
+            return RedirectToAction(nameof(Contatos), new {clienteId = contato.ClienteId});
         }
     }
 }
