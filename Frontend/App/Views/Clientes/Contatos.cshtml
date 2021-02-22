@@ -40,7 +40,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.TipoDeContato</td>
+                        <td>@item.TipoDeContato.Descricao()</td>
                         <td>@item.Valor</td>
                     </tr>
                 }

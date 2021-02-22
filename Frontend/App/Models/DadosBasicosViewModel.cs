@@ -7,7 +7,7 @@ namespace App.Models
     public class DadosBasicosViewModel
     {
         [HiddenInput]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Required(ErrorMessage = "Campo {0} é obrigatório")]
         public string Nome { get; set; }

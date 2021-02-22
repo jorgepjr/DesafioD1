@@ -75,7 +75,7 @@ namespace App.Controllers
             var endereco = await clientApi.AdicionarEndereco(enderecoViewModel);
             TempData["ClienteId"] = endereco.ClienteId;
 
-            return RedirectToAction(nameof(Enderecos), new {clienteId = endereco.ClienteId});
+            return RedirectToAction(nameof(Enderecos), new { clienteId = endereco.ClienteId });
         }
 
         public async Task<IActionResult> Enderecos(Guid clienteId)
@@ -94,8 +94,8 @@ namespace App.Controllers
 
         public async Task<IActionResult> Contatos(Guid clienteId)
         {
-             TempData["ClienteId"] = clienteId;
-             
+            TempData["ClienteId"] = clienteId;
+
             var contatos = await clientApi.BuscarContatosPorClienteId(clienteId);
 
             if (contatos is null)
@@ -124,7 +124,7 @@ namespace App.Controllers
             var contato = await clientApi.AdicionarContato(contatoViewModel);
             TempData["ClienteId"] = contato.ClienteId;
 
-            return RedirectToAction(nameof(Contatos), new {clienteId = contato.ClienteId});
+            return RedirectToAction(nameof(Contatos), new { clienteId = contato.ClienteId });
         }
     }
 }
